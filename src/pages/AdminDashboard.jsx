@@ -1,0 +1,122 @@
+import React from 'react';
+import { useInsurance } from '../context/InsuranceContext';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+
+const chartData = [
+  { name: 'Jan', premium: 4000, claims: 2400 },
+  { name: 'Feb', premium: 3000, claims: 1398 },
+  { name: 'Mar', premium: 2000, claims: 9800 },
+  { name: 'Apr', premium: 2780, claims: 3908 },
+  { name: 'May', premium: 1890, claims: 4800 },
+  { name: 'Jun', premium: 2390, claims: 3800 },
+  { name: 'Jul', premium: 3490, claims: 4300 },
+];
+
+const AdminDashboard = () => {
+  const { metrics } = useInsurance();
+
+  return (
+    <div className="p-10 max-w-[1440px] mx-auto space-y-8">
+      {/* Page Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 className="text-[32px] font-bold text-on-surface leading-tight tracking-tight">Business Performance Dashboard</h2>
+          <p className="text-on-surface-variant text-[14px] mt-1">Real-time overview of metrics across the platform.</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <button className="bg-surface-container-lowest border border-outline-variant text-on-surface-variant text-[12px] font-semibold px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-surface-container transition-all">
+            <span className="material-symbols-outlined text-[18px]">calendar_today</span>
+            Last 30 Days
+          </button>
+          <button className="bg-primary-container text-primary-fixed-dim font-bold text-[12px] px-4 py-2 rounded-lg hover:opacity-90 active:scale-95 transition-all flex items-center gap-2">
+            <span className="material-symbols-outlined text-[18px]">download</span>
+            Export Report
+          </button>
+        </div>
+      </div>
+
+      {/* KPI Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        {[
+          { title: 'Active Policies', value: metrics.activePolicies.value.toLocaleString(), trend: `+${metrics.activePolicies.trend}%`, icon: 'policy', color: 'primary' },
+          { title: 'Claim Statistics', value: `${metrics.pendingClaims.value} Pending`, trend: `${metrics.pendingClaims.trend}%`, icon: 'assignment_late', color: 'error' },
+          { title: 'Premium Collection', value: `$${(metrics.premiumCollection.value / 1000000).toFixed(1)}M`, trend: `+${metrics.premiumCollection.trend}%`, icon: 'payments', color: 'tertiary' },
+          { title: 'Customer Growth', value: `+${metrics.customerGrowth.value.toLocaleString()}`, trend: `+${metrics.customerGrowth.trend}%`, icon: 'person_add', color: 'secondary' }
+        ].map((kpi, idx) => (
+          <div key={idx} className="bg-surface-container-lowest border border-outline-variant p-5 rounded-xl transition-all hover:shadow-md group">
+            <div className="flex justify-between items-start mb-4">
+              <div className={`p-2 bg-${kpi.color}/10 text-${kpi.color} rounded-lg`}>
+                <span className="material-symbols-outlined">{kpi.icon}</span>
+              </div>
+              <span className={`text-${kpi.trend.startsWith('+') ? 'tertiary' : 'error'} text-[11px] font-medium flex items-center gap-1 bg-${kpi.trend.startsWith('+') ? 'tertiary' : 'error'}-fixed/20 px-2 py-0.5 rounded-full`}>
+                <span className="material-symbols-outlined text-[14px]">{kpi.trend.startsWith('+') ? 'trending_up' : 'trending_down'}</span>
+                {kpi.trend.replace('+', '').replace('-', '')}
+              </span>
+            </div>
+            <p className="text-on-surface-variant text-[12px] font-semibold">{kpi.title}</p>
+            <h3 className="text-[24px] font-bold text-on-surface mt-1">{kpi.value}</h3>
+          </div>
+        ))}
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+          <h3 className="text-[20px] font-semibold mb-6">Financial Overview</h3>
+          <div className="h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="colorPremium" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#0058be" stopOpacity={0.8}/>
+                    <stop offset="95%" stopColor="#0058be" stopOpacity={0}/>
+                  </linearGradient>
+                  <linearGradient id="colorClaims" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#ba1a1a" stopOpacity={0.8}/>
+                    <stop offset="95%" stopColor="#ba1a1a" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#727785', fontSize: 12}} />
+                <YAxis axisLine={false} tickLine={false} tick={{fill: '#727785', fontSize: 12}} />
+                <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #e0e3e5' }} />
+                <Area type="monotone" dataKey="premium" stroke="#0058be" fillOpacity={1} fill="url(#colorPremium)" />
+                <Area type="monotone" dataKey="claims" stroke="#ba1a1a" fillOpacity={1} fill="url(#colorClaims)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+        <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <h3 className="text-[20px] font-semibold mb-2">System Status</h3>
+            <p className="text-[13px] text-on-surface-variant">All services are operating normally.</p>
+          </div>
+          <div className="space-y-4 mt-8">
+            <div className="flex justify-between items-center p-3 bg-surface-container rounded-lg">
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-tertiary">check_circle</span>
+                <span className="text-[14px] font-medium">Claims Engine</span>
+              </div>
+              <span className="text-[11px] font-medium text-tertiary">Online</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-surface-container rounded-lg">
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-tertiary">check_circle</span>
+                <span className="text-[14px] font-medium">Payment Gateway</span>
+              </div>
+              <span className="text-[11px] font-medium text-tertiary">Online</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-surface-container rounded-lg">
+              <div className="flex items-center gap-3">
+                <span className="material-symbols-outlined text-error">warning</span>
+                <span className="text-[14px] font-medium">Document Storage</span>
+              </div>
+              <span className="text-[11px] font-medium text-error">85% Full</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminDashboard;

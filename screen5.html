@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ShieldLink | My Policies</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#0058be",
+                      "on-surface": "#191c1e",
+                      "surface-container-highest": "#e0e3e5",
+                      "secondary-fixed": "#d8e3fb",
+                      "inverse-primary": "#adc6ff",
+                      "on-background": "#191c1e",
+                      "on-secondary-fixed": "#111c2d",
+                      "on-error-container": "#93000a",
+                      "outline": "#727785",
+                      "surface": "#f7f9fb",
+                      "tertiary": "#006947",
+                      "tertiary-fixed": "#6ffbbe",
+                      "surface-container-high": "#e6e8ea",
+                      "on-primary-container": "#fefcff",
+                      "on-tertiary-container": "#f5fff6",
+                      "surface-container": "#eceef0",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#005ac2",
+                      "secondary-fixed-dim": "#bcc7de",
+                      "primary-fixed-dim": "#adc6ff",
+                      "inverse-surface": "#2d3133",
+                      "tertiary-container": "#00855b",
+                      "tertiary-fixed-dim": "#4edea3",
+                      "on-primary-fixed": "#001a42",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "surface-dim": "#d8dadc",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#545f73",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#e0e3e5",
+                      "outline-variant": "#c2c6d6",
+                      "background": "#f7f9fb",
+                      "on-primary-fixed-variant": "#004395",
+                      "secondary-container": "#d5e0f8",
+                      "primary-fixed": "#d8e2ff",
+                      "on-tertiary-fixed-variant": "#005236",
+                      "surface-container-low": "#f2f4f6",
+                      "on-tertiary-fixed": "#002113",
+                      "surface-bright": "#f7f9fb",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-container": "#586377",
+                      "primary-container": "#2170e4",
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-surface-variant": "#424754"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "stack-md": "16px",
+                      "stack-lg": "32px",
+                      "gutter": "24px",
+                      "margin-desktop": "40px",
+                      "unit": "4px",
+                      "container-max": "1440px",
+                      "stack-sm": "8px"
+              },
+              "fontFamily": {
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "headline-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .zebra-table tr:nth-child(even) { background-color: #f8fafc; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar Component -->
+<header class="bg-surface dark:bg-surface-dim shadow-sm docked full-width top-0 sticky z-40">
+<div class="flex justify-between items-center px-margin-desktop h-16 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary">ShieldLink</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="font-label-md text-label-md text-primary dark:text-inverse-primary border-b-2 border-primary font-bold pb-1 transition-colors" href="#">My Policies</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant pb-1 hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Claims</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant pb-1 hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Support</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md active:scale-95 duration-100">
+                    File a Claim
+                </button>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional corporate portrait of a smiling female executive with a warm expression, set against a blurred modern office background with soft natural lighting and a clean, high-fidelity finish that reflects the ShieldLink brand identity of trust and systematic transparency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhuWIysPinFTuudOPy_cyijw9GEk7Kckp-gIy1tSEmXH1ymX-igY9nLBHtx4NlyzHub23BHe2VJqS5HHYArkgcIrfmdHBmMyAgKdYDtCsw97pofoZQySaFIvh-q55ZJyxlIr0paXHxZKv6mAmBuAecWh7ta5tfSHvEF1iBD4J-x-7RM5qPETt3kjjEU7iCjj7HGF0EvAjgxFfmJ6QRp13Fa95JhC6m9yogDQvl7Mm70pmaOitrV77p4HrJHoWAfb3yU9p6ABb9tFC-"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Content Canvas -->
+<div class="lg:col-span-8 space-y-stack-lg">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Active Policies</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your coverage and payments</p>
+</div>
+<button class="flex items-center gap-2 bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-highest transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                        New Policy
+                    </button>
+</div>
+<!-- Bento Grid of Policies -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Policy Card 1 -->
+<div class="glass-card p-6 rounded-xl flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+<div class="space-y-4">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-primary-fixed-dim/20 rounded-lg text-primary">
+<span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+</div>
+<span class="px-3 py-1 bg-tertiary/10 text-tertiary rounded-full font-label-sm text-label-sm">Active</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm">Auto Comprehensive</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Policy: #AL-992384-01</p>
+</div>
+<div class="pt-2">
+<p class="font-label-sm text-label-sm uppercase text-outline">Coverage Limit</p>
+<p class="font-headline-sm text-headline-sm">$500,000</p>
+</div>
+</div>
+<div class="mt-8 flex gap-3">
+<button class="flex-1 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md active:scale-95 duration-100">Pay Premium</button>
+<button class="flex items-center justify-center w-12 h-10 border border-outline-variant text-on-surface-variant rounded-lg hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<!-- Policy Card 2 -->
+<div class="glass-card p-6 rounded-xl flex flex-col justify-between h-full hover:shadow-md transition-shadow">
+<div class="space-y-4">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-secondary-container rounded-lg text-secondary">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</div>
+<span class="px-3 py-1 bg-tertiary/10 text-tertiary rounded-full font-label-sm text-label-sm">Active</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm">Homeowners Plus</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Policy: #HP-441029-05</p>
+</div>
+<div class="pt-2">
+<p class="font-label-sm text-label-sm uppercase text-outline">Deductible</p>
+<p class="font-headline-sm text-headline-sm">$1,000</p>
+</div>
+</div>
+<div class="mt-8 flex gap-3">
+<button class="flex-1 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md active:scale-95 duration-100">Pay Premium</button>
+<button class="flex items-center justify-center w-12 h-10 border border-outline-variant text-on-surface-variant rounded-lg hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Recent Activity Table Section -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm">Payment History</h2>
+<button class="text-primary font-label-md text-label-md hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left zebra-table">
+<thead>
+<tr class="font-label-md text-label-md text-outline bg-surface-container-low">
+<th class="px-6 py-3 font-semibold">Date</th>
+<th class="px-6 py-3 font-semibold">Description</th>
+<th class="px-6 py-3 font-semibold text-right">Amount</th>
+<th class="px-6 py-3 font-semibold">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<tr>
+<td class="px-6 py-4">Oct 12, 2023</td>
+<td class="px-6 py-4">Premium Payment - Auto</td>
+<td class="px-6 py-4 text-right font-semibold">$184.00</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-tertiary/10 text-tertiary rounded text-label-sm font-medium">Successful</span>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4">Sep 12, 2023</td>
+<td class="px-6 py-4">Premium Payment - Auto</td>
+<td class="px-6 py-4 text-right font-semibold">$184.00</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-tertiary/10 text-tertiary rounded text-label-sm font-medium">Successful</span>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4">Aug 12, 2023</td>
+<td class="px-6 py-4">Premium Payment - Auto</td>
+<td class="px-6 py-4 text-right font-semibold">$184.00</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 bg-tertiary/10 text-tertiary rounded text-label-sm font-medium">Successful</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar Widgets -->
+<div class="lg:col-span-4 space-y-stack-lg">
+<!-- Payment Due Widget -->
+<div class="bg-primary-container p-6 rounded-xl text-on-primary-container shadow-lg relative overflow-hidden">
+<div class="relative z-10">
+<p class="font-label-md text-label-md opacity-80 uppercase tracking-wider">Next Payment Due</p>
+<h2 class="font-headline-lg text-headline-lg mt-1">Oct 28, 2023</h2>
+<div class="mt-4 flex justify-between items-center">
+<span class="font-headline-sm text-headline-sm">$312.50</span>
+<span class="font-body-sm text-body-sm bg-white/20 px-2 py-1 rounded">2 policies</span>
+</div>
+<button class="w-full mt-6 py-3 bg-white text-primary font-bold rounded-lg hover:bg-surface-bright transition-colors active:scale-95 duration-100">
+                            Pay Now
+                        </button>
+</div>
+<!-- Subtle background decoration -->
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+</div>
+<!-- Recent Claim Status Widget -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-xl">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="assignment_late">assignment_late</span>
+<h2 class="font-headline-sm text-headline-sm">Recent Claim</h2>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div>
+<p class="font-label-md text-label-md">Claim #CL-88210</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Windshield Damage</p>
+</div>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm">In Review</span>
+</div>
+<!-- Progress Stepper -->
+<div class="flex items-center gap-2 pt-2">
+<div class="h-1.5 flex-1 bg-primary rounded-full"></div>
+<div class="h-1.5 flex-1 bg-primary rounded-full"></div>
+<div class="h-1.5 flex-1 bg-surface-container-highest rounded-full"></div>
+<div class="h-1.5 flex-1 bg-surface-container-highest rounded-full"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">Last updated: Today, 10:45 AM</p>
+<button class="w-full py-2 border border-outline-variant text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">
+                            View Claim Details
+                        </button>
+</div>
+</div>
+<!-- Submit New Claim CTA -->
+<div class="p-6 rounded-xl border-2 border-dashed border-outline-variant flex flex-col items-center text-center space-y-4 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl" data-icon="campaign">campaign</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm">Need to file a new claim?</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant px-4">Our quick guided process helps you submit documentation in under 5 minutes.</p>
+</div>
+<button class="text-primary font-bold font-label-md text-label-md group-hover:underline">Submit New Claim →</button>
+</div>
+<!-- Ad/Promotion Space with Image -->
+<div class="relative h-48 rounded-xl overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A cinematic, high-contrast photograph of a sleek, silver electric car driving through a misty mountain road at sunrise, symbolizing safety and forward-thinking technology. The lighting is soft and golden, with a premium corporate aesthetic that aligns with ShieldLink's authoritative and transparent brand personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaNoR0Gvm2ASgJLX0ovXfZPj8k60ksYxZ6KZLsjEb_AUZzphZbZDYu9KeHBA2sh5f-Wv0YKyqM6QEiAwgzUi3zxvTTxVxI4B_TUuK5BX1jyBUOnQA7_V-z3JfBpV61kHDX7c-kmqLxZZBldqfliYBEdk8mDGPy_VLNDP-Ff-j8zyf4HrY85B2NmcU3FQ7NUyqR3qcaXxG6u2h9fkS6awdWPyXMORCTKFhNhkH0EsoNJqoFDJXFkpxqNFwbPjyTqffFtug20Pmv6RAK"/>
+<div class="absolute bottom-4 left-4 z-20 text-white">
+<p class="font-label-sm text-label-sm uppercase opacity-80">Safe Driver Discount</p>
+<h4 class="font-headline-sm text-headline-sm">Save up to 15%</h4>
+<p class="font-body-sm text-body-sm opacity-90">Renew your policy today</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Interactive Layer: Simple Scroll Effect -->
+<script>
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

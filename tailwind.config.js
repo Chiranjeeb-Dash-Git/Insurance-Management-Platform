@@ -1,0 +1,81 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "primary": "#0058be",
+        "on-surface": "#191c1e",
+        "surface-container-highest": "#e0e3e5",
+        "secondary-fixed": "#d8e3fb",
+        "inverse-primary": "#adc6ff",
+        "on-background": "#191c1e",
+        "on-secondary-fixed": "#111c2d",
+        "on-error-container": "#93000a",
+        "outline": "#727785",
+        "surface": "#f7f9fb",
+        "tertiary": "#006947",
+        "tertiary-fixed": "#6ffbbe",
+        "surface-container-high": "#e6e8ea",
+        "on-primary-container": "#fefcff",
+        "on-tertiary-container": "#f5fff6",
+        "surface-container": "#eceef0",
+        "surface-container-lowest": "#ffffff",
+        "error-container": "#ffdad6",
+        "surface-tint": "#005ac2",
+        "secondary-fixed-dim": "#bcc7de",
+        "primary-fixed-dim": "#adc6ff",
+        "inverse-surface": "#2d3133",
+        "tertiary-container": "#00855b",
+        "tertiary-fixed-dim": "#4edea3",
+        "on-primary-fixed": "#001a42",
+        "on-secondary-fixed-variant": "#3c475a",
+        "surface-dim": "#d8dadc",
+        "on-secondary": "#ffffff",
+        "secondary": "#545f73",
+        "on-primary": "#ffffff",
+        "surface-variant": "#e0e3e5",
+        "outline-variant": "#c2c6d6",
+        "background": "#f7f9fb",
+        "on-primary-fixed-variant": "#004395",
+        "secondary-container": "#d5e0f8",
+        "primary-fixed": "#d8e2ff",
+        "on-tertiary-fixed-variant": "#005236",
+        "surface-container-low": "#f2f4f6",
+        "on-tertiary-fixed": "#002113",
+        "surface-bright": "#f7f9fb",
+        "on-tertiary": "#ffffff",
+        "on-secondary-container": "#586377",
+        "primary-container": "#2170e4",
+        "error": "#ba1a1a",
+        "on-error": "#ffffff",
+        "inverse-on-surface": "#eff1f3",
+        "on-surface-variant": "#424754"
+      },
+      borderRadius: {
+        "DEFAULT": "0.125rem",
+        "lg": "0.25rem",
+        "xl": "0.5rem",
+        "full": "0.75rem"
+      },
+      spacing: {
+        "margin-mobile": "16px",
+        "stack-md": "16px",
+        "stack-lg": "32px",
+        "gutter": "24px",
+        "margin-desktop": "40px",
+        "unit": "4px",
+        "container-max": "1440px",
+        "stack-sm": "8px"
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"]
+      }
+    },
+  },
+  plugins: [],
+}
