@@ -27,7 +27,7 @@ export const downloadPDF = async (filename, endpointUrl = null, token = null) =>
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
+      setTimeout(() => window.URL.revokeObjectURL(url), 1000);
       return;
     } catch (err) {
       console.error('Failed to download PDF from API', err);
