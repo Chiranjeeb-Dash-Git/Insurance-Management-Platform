@@ -1,6 +1,7 @@
 import React from 'react';
 import { useInsurance } from '../context/InsuranceContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { downloadCSV, downloadPDF } from '../utils/exportUtils';
 
 const chartData = [
   { name: 'Jan', premium: 4000, claims: 2400 },
@@ -13,7 +14,7 @@ const chartData = [
 ];
 
 const AdminDashboard = () => {
-  const { metrics } = useInsurance();
+  const { metrics, token } = useInsurance();
 
   return (
     <div className="p-10 max-w-[1440px] mx-auto space-y-8">
@@ -28,9 +29,24 @@ const AdminDashboard = () => {
             <span className="material-symbols-outlined text-[18px]">calendar_today</span>
             Last 30 Days
           </button>
-          <button className="bg-primary-container text-primary-fixed-dim font-bold text-[12px] px-4 py-2 rounded-lg hover:opacity-90 active:scale-95 transition-all flex items-center gap-2">
+          <button onClick={() => {
+            const data = [
+              ['Metric', 'Value'],
+              ['Total Premium', `$${metrics.premiumCollection.value}`],
+              ['Active Policies', metrics.activePolicies.value],
+              ['Pending Claims', metrics.pendingClaims.value],
+              ['Customer Growth', metrics.customerGrowth.value]
+            ];
+            downloadCSV(data, 'business_report.csv');
+          }} className="flex items-center gap-2 bg-surface-container border border-outline-variant text-on-surface px-4 py-2 rounded-lg text-[12px] font-semibold hover:bg-surface-container-high transition-colors active:scale-95 duration-100">
+            <span className="material-symbols-outlined text-[18px]">table_view</span>
+            Export CSV
+          </button>
+          <button onClick={() => {
+            downloadPDF('Admin_Report.pdf', '/api/export/report', token);
+          }} className="flex items-center gap-2 bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg text-[12px] font-semibold hover:bg-surface-container-highest transition-colors active:scale-95 duration-100">
             <span className="material-symbols-outlined text-[18px]">download</span>
-            Export Report
+            Export PDF
           </button>
         </div>
       </div>

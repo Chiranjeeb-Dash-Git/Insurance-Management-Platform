@@ -1,101 +1,186 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useInsurance } from '../context/InsuranceContext';
 
 const PolicyManagementPage = () => {
-  const { customers, policies } = useInsurance();
+  const { customers, policies, setActiveModal, setModalData, revokePolicy, renewPolicy, globalSearch } = useInsurance();
+  const [showFilters, setShowFilters] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  
+  const [searchTerm, setSearchTerm] = useState('');
+  const [typeFilter, setTypeFilter] = useState('All Types');
+  const [statusFilter, setStatusFilter] = useState('All Statuses');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const activeSearchTerm = searchTerm || globalSearch;
+
+  // Filter policies
+  const filteredPolicies = policies.filter(p => {
+    const customer = customers.find(c => c.id === p.customerId);
+    const customerName = customer?.name || '';
+    const matchSearch = customerName.toLowerCase().includes(activeSearchTerm.toLowerCase()) || 
+                        p.id.toLowerCase().includes(activeSearchTerm.toLowerCase());
+    const matchType = typeFilter === 'All Types' || p.type.includes(typeFilter);
+    const matchStatus = statusFilter === 'All Statuses' || p.status === statusFilter;
+    return matchSearch && matchType && matchStatus;
+  });
+
+  const totalPages = Math.ceil(filteredPolicies.length / itemsPerPage);
+  const paginatedPolicies = filteredPolicies.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const isExpiringSoon = (dateString) => {
+    if (!dateString) return false;
+    const expiry = new Date(dateString);
+    const today = new Date();
+    const diffTime = Math.abs(expiry - today);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays <= 30 && expiry > today;
+  };
 
   return (
-    <div className="p-10 max-w-[1440px] mx-auto space-y-8">
+    <div className="p-10 max-w-[1440px] mx-auto space-y-8 animate-in fade-in">
+      <div className="flex justify-between items-end">
+        <div>
+          <h1 className="text-[32px] font-bold text-on-surface">Policy Management</h1>
+          <p className="text-[14px] text-on-surface-variant">View, create, and manage active policies</p>
+        </div>
+        <button onClick={() => { setActiveModal('NEW_POLICY'); }} className="bg-primary hover:bg-primary-container text-on-primary px-4 py-2 rounded-lg text-[13px] font-bold uppercase tracking-wider flex items-center gap-2 transition-colors">
+          <span className="material-symbols-outlined text-[18px]">add_moderator</span>
+          New Policy
+        </button>
+      </div>
+
       {/* Search & Filter Header */}
       <section className="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between">
         <div className="relative w-full md:w-96 group">
           <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
           <input 
             type="text" 
-            placeholder="Search customers or policies..." 
-            className="w-full bg-surface border border-outline-variant text-[14px] px-10 py-2 rounded-lg focus:ring-2 focus:ring-primary transition-all outline-none"
+            placeholder="Search by ID or customer..." 
+            value={searchTerm}
+            onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
+            className="w-full bg-surface border border-outline-variant text-[14px] px-10 py-2.5 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none"
           />
         </div>
         <div className="flex gap-4 w-full md:w-auto">
-          <select className="bg-surface border border-outline-variant rounded-lg px-4 py-2 text-[14px] text-on-surface-variant focus:ring-primary outline-none">
+          <select 
+            value={typeFilter}
+            onChange={(e) => { setTypeFilter(e.target.value); setCurrentPage(1); }}
+            className="bg-surface border border-outline-variant rounded-lg px-4 py-2.5 text-[14px] text-on-surface-variant focus:border-primary outline-none"
+          >
             <option>All Types</option>
-            <option>Auto Insurance</option>
-            <option>Life Insurance</option>
-            <option>Homeowners</option>
+            <option>Auto</option>
+            <option>Life</option>
+            <option>Home</option>
           </select>
-          <select className="bg-surface border border-outline-variant rounded-lg px-4 py-2 text-[14px] text-on-surface-variant focus:ring-primary outline-none">
+          <select 
+            value={statusFilter}
+            onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
+            className="bg-surface border border-outline-variant rounded-lg px-4 py-2.5 text-[14px] text-on-surface-variant focus:border-primary outline-none"
+          >
             <option>All Statuses</option>
             <option>Active</option>
-            <option>Expiring soon</option>
             <option>Cancelled</option>
           </select>
-          <button className="bg-surface hover:bg-surface-container-high border border-outline-variant px-4 py-2 rounded-lg text-[12px] font-semibold flex items-center gap-2 transition-colors">
-            <span className="material-symbols-outlined text-[18px]">filter_list</span>
-            More Filters
-          </button>
         </div>
       </section>
 
-      {/* Customer Directory Table */}
-      <section className="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm flex flex-col">
-        <div className="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
-          <h3 className="text-[20px] font-semibold">Customer Directory</h3>
-          <span className="text-[12px] font-semibold text-primary">{customers.length} Total Customers</span>
-        </div>
-        
+      {/* Policies Table */}
+      <section className="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden mt-8">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-outline-variant bg-surface-container-low/50">
-                <th className="px-6 py-4 text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">Customer</th>
-                <th className="px-6 py-4 text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">Policy Type</th>
-                <th className="px-6 py-4 text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider">Status</th>
-                <th className="px-6 py-4 text-[12px] font-semibold text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+              <tr className="border-b border-outline-variant bg-surface-container-low text-on-surface-variant text-[12px] uppercase tracking-wider">
+                <th className="px-6 py-4 font-semibold">Policy Details</th>
+                <th className="px-6 py-4 font-semibold">Customer</th>
+                <th className="px-6 py-4 font-semibold">Coverage / Premium</th>
+                <th className="px-6 py-4 font-semibold">Status / Expiry</th>
+                <th className="px-6 py-4 font-semibold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-outline-variant">
-              {policies.map((policy, idx) => {
+            <tbody className="divide-y divide-outline-variant text-[14px]">
+              {paginatedPolicies.map((policy, idx) => {
                 const customer = customers.find(c => c.id === policy.customerId);
-                const bgColors = ['primary-fixed', 'secondary-fixed', 'surface-container-highest'];
-                const textColors = ['primary', 'secondary', 'outline'];
-                const colorIdx = idx % bgColors.length;
+                const expiringSoon = isExpiringSoon(policy.expiryDate);
 
                 return (
                   <tr key={policy.id} className="hover:bg-surface-container transition-colors group">
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-full bg-${bgColors[colorIdx]} flex items-center justify-center text-${textColors[colorIdx]} font-bold`}>
-                          {customer?.initials}
-                        </div>
-                        <div>
-                          <p className="text-[14px] font-semibold">{customer?.name}</p>
-                          <p className="text-[13px] text-on-surface-variant">{customer?.id}</p>
-                        </div>
+                      <p className="font-semibold text-on-surface">{policy.type}</p>
+                      <p className="text-[12px] text-on-surface-variant font-mono">ID: {policy.id.substring(0,8)}</p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <p className="font-semibold">{customer?.name}</p>
+                      <p className="text-[12px] text-on-surface-variant">{customer?.email}</p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <p className="font-semibold">${policy.coverageLimit?.toLocaleString()}</p>
+                      <p className="text-[12px] text-on-surface-variant">${policy.premium}/mo</p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex flex-col gap-1 items-start">
+                        {policy.status === 'Active' && !expiringSoon && (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-tertiary-container text-on-tertiary-container">Active</span>
+                        )}
+                        {policy.status === 'Active' && expiringSoon && (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-error-container text-on-error-container">Expiring Soon</span>
+                        )}
+                        {policy.status === 'Cancelled' && (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-surface-container-highest text-on-surface-variant">Cancelled</span>
+                        )}
+                        <span className="text-[11px] text-on-surface-variant">Exp: {policy.expiryDate}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-[14px]">{policy.type}</td>
-                    <td className="px-6 py-4">
-                      {policy.status === 'Active' && (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-tertiary/10 text-tertiary">Active</span>
-                      )}
-                      {policy.status === 'Expiring soon' && (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-700">Expiring soon</span>
-                      )}
-                      {policy.status === 'Cancelled' && (
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-error-container text-on-error-container">Cancelled</span>
-                      )}
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <button className="p-2 hover:bg-surface-container-highest rounded-lg transition-colors text-outline">
+                    <td className="px-6 py-4 text-right relative">
+                      <button onClick={() => setOpenDropdown(openDropdown === policy.id ? null : policy.id)} className="p-2 hover:bg-surface-container-highest rounded-lg transition-colors text-outline">
                         <span className="material-symbols-outlined">more_vert</span>
                       </button>
+                      {openDropdown === policy.id && (
+                        <div className="absolute right-8 top-10 bg-surface border border-outline-variant rounded-lg shadow-lg w-40 z-10 overflow-hidden text-left animate-in fade-in zoom-in-95">
+                          {policy.status === 'Active' && (
+                            <button onClick={() => { renewPolicy(policy.id); setOpenDropdown(null); }} className="w-full text-left px-4 py-2 text-[12px] font-semibold hover:bg-surface-container-high transition-colors text-primary">
+                              Renew Policy (1 yr)
+                            </button>
+                          )}
+                          <button onClick={() => { revokePolicy(policy.id); setOpenDropdown(null); }} className="w-full text-left px-4 py-2 hover:bg-error-container hover:text-error text-[12px] font-semibold text-error transition-colors">
+                            Revoke Policy
+                          </button>
+                        </div>
+                      )}
                     </td>
                   </tr>
                 );
               })}
+              {paginatedPolicies.length === 0 && (
+                <tr>
+                  <td colSpan="5" className="text-center py-8 text-on-surface-variant">No policies found.</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="px-6 py-4 border-t border-outline-variant flex justify-between items-center bg-surface-container-low">
+            <span className="text-[13px] text-on-surface-variant">Page {currentPage} of {totalPages}</span>
+            <div className="flex gap-2">
+              <button 
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(prev => prev - 1)}
+                className="px-3 py-1 bg-surface border border-outline-variant rounded disabled:opacity-50 text-[13px] hover:bg-surface-container"
+              >
+                Previous
+              </button>
+              <button 
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(prev => prev + 1)}
+                className="px-3 py-1 bg-surface border border-outline-variant rounded disabled:opacity-50 text-[13px] hover:bg-surface-container"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   );

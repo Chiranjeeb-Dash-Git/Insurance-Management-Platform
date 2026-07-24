@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  role      String   // "ADMIN", "AGENT", "CUSTOMER"
+  name      String
+  
+  // Relations
+  customers CustomerProfile[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CustomerProfile {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  phone     String?
+  address   String?
+  
+  // Relations
+  policies  Policy[]
+  claims    Claim[]
+  payments  Payment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Policy {
+  id            String   @id @default(uuid())
+  customerId    String
+  customer      CustomerProfile @relation(fields: [customerId], references: [id])
+  type          String   // e.g. "Auto Comprehensive", "Homeowners Plus"
+  status        String   // "Active", "Expiring soon", "Cancelled"
+  coverageLimit Float
+  premium       Float
+  deductible    Float
+  expiryDate    String   // Stored as YYYY-MM-DD for simplicity
+  
+  // Relations
+  claims        Claim[]
+  payments      Payment[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Claim {
+  id            String   @id @default(uuid())
+  policyId      String
+  policy        Policy   @relation(fields: [policyId], references: [id])
+  customerId    String
+  customer      CustomerProfile @relation(fields: [customerId], references: [id])
+  
+  incidentType  String
+  status        String   // "In Review", "Approved", "Rejected"
+  estimatedLoss Float
+  description   String
+  adjusterNotes String?
+  
+  submittedDate String
+  
+  // Relations
+  documents     Document[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Payment {
+  id          String   @id @default(uuid())
+  policyId    String
+  policy      Policy   @relation(fields: [policyId], references: [id])
+  customerId  String
+  customer    CustomerProfile @relation(fields: [customerId], references: [id])
+  
+  amount      Float
+  date        String
+  description String
+  status      String   // "Successful", "Pending", "Failed"
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Document {
+  id          String   @id @default(uuid())
+  claimId     String?
+  claim       Claim?   @relation(fields: [claimId], references: [id])
+  
+  fileName    String
+  fileUrl     String
+  type        String   // e.g. "Identification", "Incident Photos", "Official Report"
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

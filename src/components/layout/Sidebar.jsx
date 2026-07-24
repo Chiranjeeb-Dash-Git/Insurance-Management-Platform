@@ -2,7 +2,7 @@ import React from 'react';
 import { useInsurance } from '../../context/InsuranceContext';
 
 const Sidebar = ({ currentPath, setCurrentPath }) => {
-  const { currentRole } = useInsurance();
+  const { currentRole, setActiveModal, handleLogout } = useInsurance();
 
   const getNavItems = () => {
     if (currentRole === 'Administrator') {
@@ -42,7 +42,7 @@ const Sidebar = ({ currentPath, setCurrentPath }) => {
 
         {/* CTA */}
         {currentRole !== 'Customer' && (
-          <button className="mb-8 w-full bg-primary text-on-primary py-3 px-4 rounded-lg text-[12px] font-semibold flex items-center justify-center gap-2 hover:bg-primary-container active:scale-95 transition-all shadow-sm">
+          <button onClick={() => setActiveModal('NEW_POLICY')} className="mb-8 w-full bg-primary text-on-primary py-3 px-4 rounded-lg text-[12px] font-semibold flex items-center justify-center gap-2 hover:bg-primary-container active:scale-95 transition-all shadow-sm">
             <span className="material-symbols-outlined text-[18px]">add</span>
             New Policy
           </button>
@@ -69,11 +69,11 @@ const Sidebar = ({ currentPath, setCurrentPath }) => {
 
         {/* Footer Navigation */}
         <div className="pt-4 border-t border-outline-variant mt-4 space-y-1">
-          <a href="#" className="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant text-[12px] font-semibold hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors active:scale-95 duration-100">
+          <a href="#" onClick={(e) => { e.preventDefault(); alert('Redirecting to Help Center'); }} className="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant text-[12px] font-semibold hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors active:scale-95 duration-100">
             <span className="material-symbols-outlined">help</span>
             Help Center
           </a>
-          <a href="#" className="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant text-[12px] font-semibold hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors active:scale-95 duration-100">
+          <a href="#" onClick={(e) => { e.preventDefault(); handleLogout(); }} className="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant text-[12px] font-semibold hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors active:scale-95 duration-100">
             <span className="material-symbols-outlined">logout</span>
             Logout
           </a>
