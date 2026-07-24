@@ -53,9 +53,19 @@ const validate = (schema) => (req, res, next) => {
     req.body = schema.parse(req.body);
     next();
   } catch (err) {
+    if (err.issues) {
+      return res.status(400).json({ error: err.issues.map(e => e.message).join(', ') });
+    }
     if (err.errors) {
       return res.status(400).json({ error: err.errors.map(e => e.message).join(', ') });
     }
+    try {
+      const parsed = JSON.parse(err.message);
+      if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].message) {
+        return res.status(400).json({ error: parsed.map(e => e.message).join(', ') });
+      }
+    } catch (e) {}
+    
     return res.status(400).json({ error: err.message || 'Validation failed' });
   }
 };
