@@ -3,18 +3,9 @@ import { useInsurance } from '../context/InsuranceContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { downloadCSV, downloadPDF } from '../utils/exportUtils';
 
-const chartData = [
-  { name: 'Jan', premium: 4000, claims: 2400 },
-  { name: 'Feb', premium: 3000, claims: 1398 },
-  { name: 'Mar', premium: 2000, claims: 9800 },
-  { name: 'Apr', premium: 2780, claims: 3908 },
-  { name: 'May', premium: 1890, claims: 4800 },
-  { name: 'Jun', premium: 2390, claims: 3800 },
-  { name: 'Jul', premium: 3490, claims: 4300 },
-];
 
 const AdminDashboard = () => {
-  const { metrics, token } = useInsurance();
+  const { metrics, chartData, token } = useInsurance();
 
   return (
     <div className="p-10 max-w-[1440px] mx-auto space-y-8">

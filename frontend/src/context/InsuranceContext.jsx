@@ -39,6 +39,27 @@ export const InsuranceProvider = ({ children }) => {
     };
   }, [policies, claims, payments, customers]);
 
+  const chartData = React.useMemo(() => {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const data = months.map(m => ({ name: m, premium: 0, claims: 0 }));
+
+    payments.forEach(p => {
+      const d = new Date(p.date);
+      if (!isNaN(d.getTime())) {
+        data[d.getMonth()].premium += Number(p.amount) || 0;
+      }
+    });
+
+    claims.forEach(c => {
+      const d = new Date(c.submittedDate);
+      if (!isNaN(d.getTime())) {
+        data[d.getMonth()].claims += Number(c.estimatedLoss) || 0;
+      }
+    });
+
+    return data;
+  }, [payments, claims]);
+
   const [notifications, setNotifications] = useState([
     { id: '1', text: 'Welcome to ShieldLink Insurance Platform!', date: new Date().toISOString() }
   ]);
@@ -269,7 +290,7 @@ export const InsuranceProvider = ({ children }) => {
       policies, addPolicy, revokePolicy, renewPolicy,
       claims, addClaim, updateClaimStatus,
       payments, addPayment,
-      metrics,
+      metrics, chartData,
       notifications, setNotifications, addNotification,
       activeModal, setActiveModal,
       modalData, setModalData,
