@@ -53,7 +53,10 @@ const validate = (schema) => (req, res, next) => {
     req.body = schema.parse(req.body);
     next();
   } catch (err) {
-    return res.status(400).json({ error: err.errors.map(e => e.message).join(', ') });
+    if (err.errors) {
+      return res.status(400).json({ error: err.errors.map(e => e.message).join(', ') });
+    }
+    return res.status(400).json({ error: err.message || 'Validation failed' });
   }
 };
 
@@ -544,6 +547,12 @@ app.get('/api/payments/:id/receipt', authenticateToken, async (req, res) => {
   doc.text(`Description: ${payment.description}`);
 
   doc.end();
+});
+
+// Global Error Handler to prevent HTML responses
+app.use((err, req, res, next) => {
+  console.error('Unhandled Error:', err);
+  res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
 });
 
 // Start server
