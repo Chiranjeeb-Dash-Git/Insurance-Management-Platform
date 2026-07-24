@@ -84,13 +84,19 @@ const AdminDashboard = () => {
           </div>
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+              <ComposedChart data={chartData} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e0e3e5" opacity={0.5} />
                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#727785', fontSize: 10, fontWeight: 500}} tickFormatter={(val) => val.toUpperCase()} />
-                <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ borderRadius: '8px', border: '1px solid #e0e3e5', fontSize: '12px' }} />
-                <Bar dataKey="premium" fill="#d1e4ff" radius={[4, 4, 0, 0]} barSize={40} />
-                <Line type="monotone" dataKey="premium" stroke="#0058be" strokeWidth={2} dot={false} />
-                <Line type="monotone" dataKey="claims" stroke="#106d43" strokeWidth={1.5} strokeDasharray="5 5" dot={false} />
+                <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{fill: '#0058be', fontSize: 10, fontWeight: 500}} tickFormatter={(val) => `$${(val/1000).toFixed(0)}k`} />
+                <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{fill: '#106d43', fontSize: 10, fontWeight: 500}} tickFormatter={(val) => `$${(val/1000).toFixed(0)}k`} />
+                <Tooltip 
+                  cursor={{fill: 'transparent'}} 
+                  contentStyle={{ borderRadius: '8px', border: '1px solid #e0e3e5', fontSize: '12px', fontWeight: 500 }} 
+                  formatter={(value) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value)}
+                />
+                <Bar yAxisId="left" dataKey="premium" name="Premium" fill="#d1e4ff" radius={[4, 4, 0, 0]} barSize={40} />
+                <Line yAxisId="left" type="monotone" dataKey="premium" name="Premium Trend" stroke="#0058be" strokeWidth={3} dot={{r: 3, fill: '#0058be'}} activeDot={{r: 5}} />
+                <Line yAxisId="right" type="monotone" dataKey="claims" name="Claims" stroke="#106d43" strokeWidth={2} strokeDasharray="5 5" dot={{r: 3, fill: '#106d43'}} activeDot={{r: 5}} />
               </ComposedChart>
             </ResponsiveContainer>
           </div>
