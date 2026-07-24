@@ -47,7 +47,7 @@ const AdminDashboard = () => {
         {[
           { title: 'Active Policies', value: metrics.activePolicies.value.toLocaleString(), trend: `+${metrics.activePolicies.trend}%`, icon: 'policy', color: 'primary' },
           { title: 'Claim Statistics', value: `${metrics.pendingClaims.value} Pending`, trend: `${metrics.pendingClaims.trend}%`, icon: 'assignment_late', color: 'error' },
-          { title: 'Premium Collection', value: `$${(metrics.premiumCollection.value / 1000000).toFixed(1)}M`, trend: `+${metrics.premiumCollection.trend}%`, icon: 'payments', color: 'tertiary' },
+          { title: 'Premium Collection', value: metrics.premiumCollection.value >= 1000000 ? `$${(metrics.premiumCollection.value / 1000000).toFixed(1)}M` : metrics.premiumCollection.value >= 1000 ? `$${(metrics.premiumCollection.value / 1000).toFixed(1)}k` : `$${metrics.premiumCollection.value.toLocaleString()}`, trend: `+${metrics.premiumCollection.trend}%`, icon: 'payments', color: 'tertiary' },
           { title: 'Customer Growth', value: `+${metrics.customerGrowth.value.toLocaleString()}`, trend: `+${metrics.customerGrowth.trend}%`, icon: 'person_add', color: 'secondary' }
         ].map((kpi, idx) => (
           <div key={idx} className="bg-surface-container-lowest border border-outline-variant p-5 rounded-xl transition-all hover:shadow-md group">
