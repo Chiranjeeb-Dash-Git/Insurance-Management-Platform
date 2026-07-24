@@ -1,6 +1,6 @@
 import React from 'react';
 import { useInsurance } from '../context/InsuranceContext';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Bar } from 'recharts';
 import { downloadCSV, downloadPDF } from '../utils/exportUtils';
 
 
@@ -69,26 +69,29 @@ const AdminDashboard = () => {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
-          <h3 className="text-[20px] font-semibold mb-6">Financial Overview</h3>
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-[20px] font-semibold">Monthly Business Reports</h3>
+            <div className="flex gap-3">
+              <div className="bg-primary-container/20 text-on-surface text-[11px] px-2 py-1 rounded flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
+                Premium
+              </div>
+              <div className="bg-tertiary/10 text-on-surface text-[11px] px-2 py-1 rounded flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+                Claims
+              </div>
+            </div>
+          </div>
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="colorPremium" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#0058be" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="#0058be" stopOpacity={0}/>
-                  </linearGradient>
-                  <linearGradient id="colorClaims" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#ba1a1a" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="#ba1a1a" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#727785', fontSize: 12}} />
-                <YAxis axisLine={false} tickLine={false} tick={{fill: '#727785', fontSize: 12}} />
-                <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #e0e3e5' }} />
-                <Area type="monotone" dataKey="premium" stroke="#0058be" fillOpacity={1} fill="url(#colorPremium)" />
-                <Area type="monotone" dataKey="claims" stroke="#ba1a1a" fillOpacity={1} fill="url(#colorClaims)" />
-              </AreaChart>
+              <ComposedChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e0e3e5" opacity={0.5} />
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#727785', fontSize: 10, fontWeight: 500}} tickFormatter={(val) => val.toUpperCase()} />
+                <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ borderRadius: '8px', border: '1px solid #e0e3e5', fontSize: '12px' }} />
+                <Bar dataKey="premium" fill="#d1e4ff" radius={[4, 4, 0, 0]} barSize={40} />
+                <Line type="monotone" dataKey="premium" stroke="#0058be" strokeWidth={2} dot={false} />
+                <Line type="monotone" dataKey="claims" stroke="#106d43" strokeWidth={1.5} strokeDasharray="5 5" dot={false} />
+              </ComposedChart>
             </ResponsiveContainer>
           </div>
         </div>
