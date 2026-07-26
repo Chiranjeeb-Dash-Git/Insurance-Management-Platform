@@ -294,8 +294,7 @@ export const InsuranceProvider = ({ children }) => {
       notifications, setNotifications, addNotification,
       activeModal, setActiveModal,
       modalData, setModalData,
-      toastMsg, setToastMsg,
-      handleLogout
+      toastMsg, setToastMsg
     }}>
       {children}
     </InsuranceContext.Provider>

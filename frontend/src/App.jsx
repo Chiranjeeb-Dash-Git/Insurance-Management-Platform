@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import AdminDashboard from './pages/AdminDashboard';
@@ -15,6 +15,8 @@ function App() {
   const { currentRole, token } = useInsurance();
   const [currentPath, setCurrentPath] = useState('dashboard');
 
+  const mainRef = useRef(null);
+
   // Reset path when role changes
   useEffect(() => {
     if (currentRole === 'Customer') {
@@ -23,6 +25,14 @@ function App() {
       setCurrentPath('dashboard');
     }
   }, [currentRole]);
+
+  // Scroll to top on page or role change
+  useEffect(() => {
+    if (mainRef.current) {
+      mainRef.current.scrollTop = 0;
+    }
+    window.scrollTo(0, 0);
+  }, [currentPath, currentRole]);
 
   const renderContent = () => {
     if (currentRole === 'Customer') {
@@ -77,7 +87,7 @@ function App() {
           <Sidebar currentPath={currentPath} setCurrentPath={setCurrentPath} />
           <div className="flex-1 flex flex-col ml-64 overflow-hidden">
             <Header />
-            <main className="flex-1 overflow-y-auto custom-scrollbar">
+            <main ref={mainRef} className="flex-1 overflow-y-auto custom-scrollbar">
               {renderContent()}
             </main>
           </div>

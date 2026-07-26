@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useInsurance } from '../context/InsuranceContext';
 
 const PolicyManagementPage = () => {
@@ -11,6 +11,12 @@ const PolicyManagementPage = () => {
   const [statusFilter, setStatusFilter] = useState('All Statuses');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
+  useEffect(() => {
+    const main = document.querySelector('main');
+    if (main) main.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   const activeSearchTerm = searchTerm || globalSearch;
 
@@ -38,14 +44,23 @@ const PolicyManagementPage = () => {
   };
 
   return (
-    <div className="p-10 max-w-[1440px] mx-auto space-y-8 animate-in fade-in">
-      <div className="flex justify-between items-end">
-        <div>
-          <h1 className="text-[32px] font-bold text-on-surface">Policy Management</h1>
-          <p className="text-[14px] text-on-surface-variant">View, create, and manage active policies</p>
+    <div className="p-8 max-w-[1600px] mx-auto space-y-8 animate-in fade-in">
+      {/* Cyber Gradient Header Banner */}
+      <div className="bg-gradient-to-br from-[#0b1329] via-[#101c38] to-[#0a1931] text-white border border-blue-500/30 rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="absolute -left-12 -top-12 w-48 h-48 rounded-full bg-blue-500/15 blur-3xl pointer-events-none"></div>
+        <div className="absolute -right-12 -bottom-12 w-48 h-48 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none"></div>
+        <span className="material-symbols-outlined absolute right-6 bottom-6 text-[110px] text-white/[0.04] pointer-events-none">policy</span>
+        <div className="relative z-10 flex items-center gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/30 border border-blue-400/30 shrink-0">
+            <span className="material-symbols-outlined text-[32px] text-white">policy</span>
+          </div>
+          <div>
+            <h1 className="text-[28px] font-extrabold text-white tracking-tight">Policy Management</h1>
+            <p className="text-[14px] text-slate-300 mt-1">View, create, and manage active policies across all customer tiers</p>
+          </div>
         </div>
-        <button onClick={() => { setActiveModal('NEW_POLICY'); }} className="bg-primary hover:bg-primary-container text-on-primary px-4 py-2 rounded-lg text-[13px] font-bold uppercase tracking-wider flex items-center gap-2 transition-colors">
-          <span className="material-symbols-outlined text-[18px]">add_moderator</span>
+        <button onClick={() => { setActiveModal('NEW_POLICY'); }} className="relative z-10 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white px-6 py-3.5 rounded-xl text-[13px] font-extrabold uppercase tracking-wider flex items-center gap-2.5 shadow-lg shadow-blue-600/30 border border-blue-400/30 active:scale-95 transition-all">
+          <span className="material-symbols-outlined text-[20px]">add_moderator</span>
           New Policy
         </button>
       </div>

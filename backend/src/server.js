@@ -565,6 +565,23 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
 });
 
+// Auto-seed database if completely empty (0 users found)
+// Guarantees data will never be missing when connecting to new or reset database instances, while never deleting existing data!
+async function autoSeedIfEmpty() {
+  try {
+    const userCount = await prisma.user.count();
+    if (userCount === 0) {
+      console.log('Database is empty (0 users found). Automatically initializing test data...');
+      const { seedDatabase } = require('../prisma/seed');
+      await seedDatabase(false); // clean=false ensures existing data is never wiped
+      console.log('Automatic database initialization completed successfully.');
+    }
+  } catch (err) {
+    console.error('Auto-seed initialization check error:', err.message);
+  }
+}
+autoSeedIfEmpty();
+
 // Start server locally (Vercel will use the exported app instead)
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {

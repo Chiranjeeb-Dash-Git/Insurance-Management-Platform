@@ -8,6 +8,12 @@ const CustomerManagementPage = () => {
   const [selectedCustomerHistory, setSelectedCustomerHistory] = useState(null);
   const itemsPerPage = 10;
 
+  useEffect(() => {
+    const main = document.querySelector('main');
+    if (main) main.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }, [currentPage, selectedCustomerHistory]);
+
   const filteredCustomers = customers.filter(c => 
     c.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
     c.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -30,14 +36,23 @@ const CustomerManagementPage = () => {
   };
 
   return (
-    <div className="p-10 max-w-[1440px] mx-auto space-y-8 animate-in fade-in">
-      <div className="flex justify-between items-end">
-        <div>
-          <h1 className="text-[32px] font-bold text-on-surface">Customer Management</h1>
-          <p className="text-[14px] text-on-surface-variant">Manage customer profiles and view their history.</p>
+    <div className="p-8 max-w-[1600px] mx-auto space-y-8 animate-in fade-in">
+      {/* Cyber Gradient Header Banner */}
+      <div className="bg-gradient-to-br from-[#0b1329] via-[#101c38] to-[#0a1931] text-white border border-blue-500/30 rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="absolute -left-12 -top-12 w-48 h-48 rounded-full bg-blue-500/15 blur-3xl pointer-events-none"></div>
+        <div className="absolute -right-12 -bottom-12 w-48 h-48 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none"></div>
+        <span className="material-symbols-outlined absolute right-6 bottom-6 text-[110px] text-white/[0.04] pointer-events-none">groups</span>
+        <div className="relative z-10 flex items-center gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-lg shadow-blue-500/30 border border-blue-400/30 shrink-0">
+            <span className="material-symbols-outlined text-[32px] text-white">groups</span>
+          </div>
+          <div>
+            <h1 className="text-[28px] font-extrabold text-white tracking-tight">Customer Management</h1>
+            <p className="text-[14px] text-slate-300 mt-1">Manage customer accounts, policy portfolios, and real-time interaction history</p>
+          </div>
         </div>
-        <button onClick={() => setActiveModal('NEW_CUSTOMER')} className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-lg text-[12px] font-semibold hover:bg-primary-container hover:text-on-primary-container transition-colors active:scale-95 duration-100">
-          <span className="material-symbols-outlined">person_add</span>
+        <button onClick={() => setActiveModal('NEW_CUSTOMER')} className="relative z-10 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white px-6 py-3.5 rounded-xl text-[13px] font-extrabold uppercase tracking-wider flex items-center gap-2.5 shadow-lg shadow-blue-600/30 border border-blue-400/30 active:scale-95 transition-all">
+          <span className="material-symbols-outlined text-[20px]">person_add</span>
           Add Customer
         </button>
       </div>

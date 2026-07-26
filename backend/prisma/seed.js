@@ -16,14 +16,16 @@ function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-async function main() {
-  console.log('Cleaning up database...');
-  await prisma.document.deleteMany();
-  await prisma.payment.deleteMany();
-  await prisma.claim.deleteMany();
-  await prisma.policy.deleteMany();
-  await prisma.customerProfile.deleteMany();
-  await prisma.user.deleteMany();
+async function seedDatabase(clean = false) {
+  if (clean) {
+    console.log('Cleaning up database...');
+    await prisma.document.deleteMany();
+    await prisma.payment.deleteMany();
+    await prisma.claim.deleteMany();
+    await prisma.policy.deleteMany();
+    await prisma.customerProfile.deleteMany();
+    await prisma.user.deleteMany();
+  }
   
   console.log('Seeding initial users...');
   // Create Core Users
@@ -119,11 +121,15 @@ async function main() {
   console.log('Seeding finished successfully.');
 }
 
-main()
-  .catch(e => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+if (require.main === module) {
+  seedDatabase(true)
+    .catch(e => {
+      console.error(e);
+      process.exit(1);
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+}
+
+module.exports = { seedDatabase };

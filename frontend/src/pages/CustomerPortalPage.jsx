@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useInsurance } from '../context/InsuranceContext';
 import { downloadPDF } from '../utils/exportUtils';
 
@@ -6,6 +6,12 @@ const CustomerPortalPage = ({ currentPath }) => {
   const { policies, payments, claims, currentUser, token, setActiveModal, setModalData } = useInsurance();
   const [showAllPayments, setShowAllPayments] = useState(false);
   
+  useEffect(() => {
+    const main = document.querySelector('main');
+    if (main) main.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }, [currentPath, showAllPayments]);
+
   // Filter for the current user's data using customerProfileId
   const myPolicies = policies.filter(p => p.customerId === currentUser?.customerProfileId);
   const myPayments = payments.filter(p => p.customerId === currentUser?.customerProfileId);
@@ -14,13 +20,22 @@ const CustomerPortalPage = ({ currentPath }) => {
   if (currentPath === 'my-claims') {
     return (
       <div className="p-10 max-w-[1440px] mx-auto space-y-8 animate-in fade-in">
-        <div className="flex justify-between items-end">
-          <div>
-            <h1 className="text-[32px] font-bold text-on-surface">My Claims</h1>
-            <p className="text-[14px] text-on-surface-variant">Track the status of your recent claims</p>
+        {/* Cyber Gradient Header Banner */}
+        <div className="bg-gradient-to-br from-[#0b1329] via-[#101c38] to-[#0a1931] text-white border border-blue-500/30 rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div className="absolute -left-12 -top-12 w-48 h-48 rounded-full bg-blue-500/15 blur-3xl pointer-events-none"></div>
+          <div className="absolute -right-12 -bottom-12 w-48 h-48 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none"></div>
+          <span className="material-symbols-outlined absolute right-6 bottom-6 text-[110px] text-white/[0.04] pointer-events-none">assignment</span>
+          <div className="relative z-10 flex items-center gap-5">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 border border-indigo-400/30 shrink-0">
+              <span className="material-symbols-outlined text-[32px] text-white">assignment</span>
+            </div>
+            <div>
+              <h1 className="text-[28px] font-extrabold text-white tracking-tight">My Claims</h1>
+              <p className="text-[14px] text-slate-300 mt-1">Track the status, adjuster reviews, and settlement payouts of your recent claims</p>
+            </div>
           </div>
-          <button onClick={() => setActiveModal('FILE_CLAIM')} className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-lg text-[12px] font-semibold hover:bg-primary-container hover:text-on-primary-container transition-colors active:scale-95 duration-100">
-            <span className="material-symbols-outlined">add</span>
+          <button onClick={() => setActiveModal('FILE_CLAIM')} className="relative z-10 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white px-6 py-3.5 rounded-xl text-[13px] font-extrabold uppercase tracking-wider flex items-center gap-2.5 shadow-lg shadow-cyan-500/30 border border-cyan-400/30 active:scale-95 transition-all">
+            <span className="material-symbols-outlined text-[20px]">add_circle</span>
             File a Claim
           </button>
         </div>
@@ -61,8 +76,21 @@ const CustomerPortalPage = ({ currentPath }) => {
   if (currentPath === 'documents') {
     return (
       <div className="p-10 max-w-[1440px] mx-auto space-y-8 animate-in fade-in">
-        <h1 className="text-[32px] font-bold text-on-surface">Documents</h1>
-        <p className="text-[14px] text-on-surface-variant">Your policy documents and receipts</p>
+        {/* Cyber Gradient Header Banner */}
+        <div className="bg-gradient-to-br from-[#0b1329] via-[#101c38] to-[#0a1931] text-white border border-blue-500/30 rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div className="absolute -left-12 -top-12 w-48 h-48 rounded-full bg-blue-500/15 blur-3xl pointer-events-none"></div>
+          <div className="absolute -right-12 -bottom-12 w-48 h-48 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none"></div>
+          <span className="material-symbols-outlined absolute right-6 bottom-6 text-[110px] text-white/[0.04] pointer-events-none">folder</span>
+          <div className="relative z-10 flex items-center gap-5">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-lg shadow-blue-500/30 border border-blue-400/30 shrink-0">
+              <span className="material-symbols-outlined text-[32px] text-white">folder</span>
+            </div>
+            <div>
+              <h1 className="text-[28px] font-extrabold text-white tracking-tight">Documents</h1>
+              <p className="text-[14px] text-slate-300 mt-1">Access, download, and review all your policy agreements, terms, and billing receipts</p>
+            </div>
+          </div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {myPolicies.map(policy => (
             <div key={policy.id} className="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 flex flex-col gap-4">
@@ -87,13 +115,22 @@ const CustomerPortalPage = ({ currentPath }) => {
   return (
     <div className="p-10 max-w-[1440px] mx-auto space-y-8 animate-in fade-in">
       {/* Top Section */}
-      <div className="flex justify-between items-end">
-        <div>
-          <h1 className="text-[32px] font-bold text-on-surface">Active Policies</h1>
-          <p className="text-[14px] text-on-surface-variant">Manage your coverage and payments</p>
+      {/* Cyber Gradient Header Banner */}
+      <div className="bg-gradient-to-br from-[#0b1329] via-[#101c38] to-[#0a1931] text-white border border-blue-500/30 rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="absolute -left-12 -top-12 w-48 h-48 rounded-full bg-blue-500/15 blur-3xl pointer-events-none"></div>
+        <div className="absolute -right-12 -bottom-12 w-48 h-48 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none"></div>
+        <span className="material-symbols-outlined absolute right-6 bottom-6 text-[110px] text-white/[0.04] pointer-events-none">shield</span>
+        <div className="relative z-10 flex items-center gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/30 border border-blue-400/30 shrink-0">
+            <span className="material-symbols-outlined text-[32px] text-white">shield</span>
+          </div>
+          <div>
+            <h1 className="text-[28px] font-extrabold text-white tracking-tight">Active Policies</h1>
+            <p className="text-[14px] text-slate-300 mt-1">Manage your coverage plans, premium schedules, and instant policy benefits</p>
+          </div>
         </div>
-        <button onClick={() => setActiveModal('NEW_POLICY')} className="flex items-center gap-2 bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg text-[12px] font-semibold hover:bg-surface-container-highest transition-colors active:scale-95 duration-100">
-          <span className="material-symbols-outlined">add</span>
+        <button onClick={() => setActiveModal('NEW_POLICY')} className="relative z-10 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white px-6 py-3.5 rounded-xl text-[13px] font-extrabold uppercase tracking-wider flex items-center gap-2.5 shadow-lg shadow-blue-600/30 border border-blue-400/30 active:scale-95 transition-all">
+          <span className="material-symbols-outlined text-[20px]">add_circle</span>
           New Policy
         </button>
       </div>
@@ -105,26 +142,29 @@ const CustomerPortalPage = ({ currentPath }) => {
           {/* Policy Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {myPolicies.map((policy) => (
-              <div key={policy.id} className="glass-card bg-surface-container-lowest p-6 rounded-xl flex flex-col justify-between border border-outline-variant hover:shadow-md transition-shadow">
-                <div className="space-y-4">
+              <div key={policy.id} className={`relative overflow-hidden bg-gradient-to-br ${policy.type.includes('Auto') ? 'from-[#0058be] via-[#004395] to-[#00285a] border-blue-400/30 shadow-blue-600/20 hover:shadow-blue-500/30' : 'from-[#0284c7] via-[#0369a1] to-[#0c4a6e] border-sky-400/30 shadow-sky-600/20 hover:shadow-sky-500/30'} p-6 rounded-2xl flex flex-col justify-between border shadow-xl transition-all duration-300 hover:scale-[1.02] group`}>
+                <div className="absolute -right-8 -bottom-8 w-32 h-32 rounded-full bg-white/10 blur-xl pointer-events-none group-hover:bg-white/20 transition-all duration-500"></div>
+                <span className="material-symbols-outlined absolute -right-2 -bottom-2 text-[100px] text-white/[0.07] pointer-events-none group-hover:scale-110 group-hover:-rotate-12 transition-all duration-500">{policy.type.includes('Auto') ? 'directions_car' : 'home'}</span>
+                
+                <div className="space-y-4 relative z-10">
                   <div className="flex justify-between items-start">
-                    <div className={`p-2 rounded-lg ${policy.type.includes('Auto') ? 'bg-primary-fixed-dim/20 text-primary' : 'bg-secondary-container text-secondary'}`}>
-                      <span className="material-symbols-outlined">{policy.type.includes('Auto') ? 'directions_car' : 'home'}</span>
+                    <div className="p-3 bg-white/15 backdrop-blur-md text-white rounded-xl shadow-inner border border-white/20 transition-transform duration-300 group-hover:scale-110">
+                      <span className="material-symbols-outlined text-[24px]">{policy.type.includes('Auto') ? 'directions_car' : 'home'}</span>
                     </div>
-                    <span className="px-3 py-1 bg-tertiary/10 text-tertiary rounded-full text-[11px] font-medium">{policy.status}</span>
+                    <span className="px-3 py-1 bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 rounded-full text-[11px] font-bold uppercase tracking-wider backdrop-blur-sm">{policy.status}</span>
                   </div>
                   <div>
-                    <h3 className="text-[20px] font-semibold">{policy.type}</h3>
-                    <p className="text-[13px] text-on-surface-variant">Policy: #{policy.id}</p>
+                    <h3 className="text-[22px] font-extrabold text-white tracking-tight">{policy.type}</h3>
+                    <p className="text-[13px] text-white/80 font-medium">Policy: #{policy.id}</p>
                   </div>
                   <div className="pt-2">
-                    <p className="text-[11px] font-medium uppercase text-outline">Coverage Limit</p>
-                    <p className="text-[20px] font-semibold">${policy.coverageLimit.toLocaleString()}</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-white/70">Coverage Limit</p>
+                    <p className="text-[24px] font-extrabold text-white drop-shadow-sm">${policy.coverageLimit.toLocaleString()}</p>
                   </div>
                 </div>
-                <div className="mt-8 flex gap-3">
-                  <button onClick={() => { setModalData({ policyId: policy.id, amount: policy.premium }); setActiveModal('PAY_PREMIUM'); }} className="flex-1 py-2 bg-primary text-on-primary rounded-lg text-[12px] font-semibold active:scale-95 duration-100">Pay Premium</button>
-                  <button onClick={() => downloadPDF(`Policy_${policy.id}_Document.pdf`, `/api/policies/${policy.id}/pdf`, token)} className="flex items-center justify-center w-12 h-10 border border-outline-variant text-on-surface-variant rounded-lg hover:bg-surface-container transition-colors">
+                <div className="mt-8 flex gap-3 relative z-10">
+                  <button onClick={() => { setModalData({ policyId: policy.id, amount: policy.premium }); setActiveModal('PAY_PREMIUM'); }} className="flex-1 py-2.5 bg-white text-primary rounded-xl text-[13px] font-bold hover:bg-white/90 shadow-md active:scale-95 transition-all duration-150">Pay Premium</button>
+                  <button onClick={() => downloadPDF(`Policy_${policy.id}_Document.pdf`, `/api/policies/${policy.id}/pdf`, token)} className="flex items-center justify-center w-12 h-11 bg-white/15 border border-white/20 text-white rounded-xl hover:bg-white/25 transition-colors backdrop-blur-md">
                     <span className="material-symbols-outlined">download</span>
                   </button>
                 </div>

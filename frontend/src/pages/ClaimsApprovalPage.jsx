@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useInsurance } from '../context/InsuranceContext';
 
 import { downloadPDF } from '../utils/exportUtils';
@@ -11,6 +11,12 @@ const ClaimsApprovalPage = () => {
   const [statusFilter, setStatusFilter] = useState('All Statuses');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
+  useEffect(() => {
+    const main = document.querySelector('main');
+    if (main) main.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }, [selectedClaimId, currentPage]);
 
   const activeSearchTerm = searchTerm || globalSearch;
 
@@ -31,33 +37,35 @@ const ClaimsApprovalPage = () => {
     return (
       <div className="p-10 max-w-[1440px] mx-auto space-y-6 animate-in fade-in">
         {/* Page Header (Breadcrumb & Actions) */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
-          <div>
-            <div className="flex items-center gap-2 text-[13px] text-on-surface-variant mb-4">
-              <span onClick={() => setSelectedClaimId(null)} className="hover:text-primary cursor-pointer font-semibold">Claims Dashboard</span>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-gradient-to-br from-[#0b1329] via-[#101c38] to-[#0a1931] text-white p-8 rounded-2xl border border-blue-500/30 shadow-2xl relative overflow-hidden">
+          <div className="absolute -right-10 -bottom-10 w-40 h-40 rounded-full bg-blue-500/15 blur-3xl pointer-events-none"></div>
+          <span className="material-symbols-outlined absolute right-6 bottom-6 text-[90px] text-white/[0.04] pointer-events-none">fact_check</span>
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 text-[13px] text-slate-300 mb-3">
+              <span onClick={() => setSelectedClaimId(null)} className="hover:text-cyan-300 cursor-pointer font-bold transition-colors">Claims Dashboard</span>
               <span className="material-symbols-outlined text-[16px]">chevron_right</span>
-              <span className="text-on-surface font-semibold">Claim {currentClaim.id.substring(0,8)}</span>
+              <span className="text-white font-bold">Claim {currentClaim.id.substring(0,8)}</span>
             </div>
-            <h2 className="text-[32px] font-bold text-on-surface flex items-center gap-3">
+            <h2 className="text-[28px] font-extrabold text-white flex items-center gap-3">
               Claim {currentClaim.id.substring(0,8)}
-              {currentClaim.status === 'In Review' && <span className="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[12px] font-semibold border border-secondary/20 uppercase tracking-wider">{currentClaim.status}</span>}
-              {currentClaim.status === 'Approved' && <span className="px-3 py-1 bg-tertiary/10 text-tertiary rounded-full text-[12px] font-semibold border border-tertiary/20 uppercase tracking-wider">{currentClaim.status}</span>}
-              {currentClaim.status === 'Rejected' && <span className="px-3 py-1 bg-error-container text-on-error-container rounded-full text-[12px] font-semibold border border-error/20 uppercase tracking-wider">{currentClaim.status}</span>}
+              {currentClaim.status === 'In Review' && <span className="px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full text-[12px] font-extrabold border border-amber-400/30 uppercase tracking-wider backdrop-blur-sm">{currentClaim.status}</span>}
+              {currentClaim.status === 'Approved' && <span className="px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-[12px] font-extrabold border border-emerald-400/30 uppercase tracking-wider backdrop-blur-sm">{currentClaim.status}</span>}
+              {currentClaim.status === 'Rejected' && <span className="px-3 py-1 bg-rose-500/20 text-rose-300 rounded-full text-[12px] font-extrabold border border-rose-400/30 uppercase tracking-wider backdrop-blur-sm">{currentClaim.status}</span>}
             </h2>
-            <div className="flex items-center gap-4 mt-2 text-on-surface-variant text-[13px]">
-              <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-sm">person</span>
+            <div className="flex items-center gap-4 mt-3 text-slate-300 text-[13px] font-medium">
+              <span className="flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-sm text-blue-400">person</span>
                 Assigned to: Agent Smith
               </span>
-              <span className="w-1 h-1 bg-outline-variant rounded-full"></span>
-              <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-sm">schedule</span>
+              <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+              <span className="flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-sm text-cyan-400">schedule</span>
                 Submitted {currentClaim.submittedDate}
               </span>
             </div>
           </div>
-          <div className="flex gap-3">
-            <button onClick={() => downloadPDF(`Claim_${currentClaim.id}_Report`, `Claim_${currentClaim.id}_Report.pdf`)} className="px-4 py-2 border border-outline rounded-lg text-[12px] font-semibold text-on-surface hover:bg-surface-container transition-colors flex items-center gap-2">
+          <div className="flex gap-3 relative z-10">
+            <button onClick={() => downloadPDF(`Claim_${currentClaim.id}_Report`, `Claim_${currentClaim.id}_Report.pdf`)} className="px-4 py-2.5 bg-white/10 border border-white/20 rounded-xl text-[12px] font-bold text-white hover:bg-white/20 transition-all flex items-center gap-2 backdrop-blur-md">
               <span className="material-symbols-outlined text-sm">print</span>
               Export PDF
             </button>
@@ -216,11 +224,20 @@ const ClaimsApprovalPage = () => {
   }
 
   return (
-    <div className="p-10 max-w-[1440px] mx-auto space-y-8 animate-in fade-in">
-      <div className="flex justify-between items-end">
-        <div>
-          <h1 className="text-[32px] font-bold text-on-surface">Claims Management</h1>
-          <p className="text-[14px] text-on-surface-variant">Review and process customer claims.</p>
+    <div className="p-8 max-w-[1600px] mx-auto space-y-8 animate-in fade-in">
+      {/* Cyber Gradient Header Banner */}
+      <div className="bg-gradient-to-br from-[#0b1329] via-[#101c38] to-[#0a1931] text-white border border-blue-500/30 rounded-2xl p-8 shadow-2xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="absolute -left-12 -top-12 w-48 h-48 rounded-full bg-blue-500/15 blur-3xl pointer-events-none"></div>
+        <div className="absolute -right-12 -bottom-12 w-48 h-48 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none"></div>
+        <span className="material-symbols-outlined absolute right-6 bottom-6 text-[110px] text-white/[0.04] pointer-events-none">assignment_late</span>
+        <div className="relative z-10 flex items-center gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 border border-indigo-400/30 shrink-0">
+            <span className="material-symbols-outlined text-[32px] text-white">assignment_late</span>
+          </div>
+          <div>
+            <h1 className="text-[28px] font-extrabold text-white tracking-tight">Claims Management</h1>
+            <p className="text-[14px] text-slate-300 mt-1">Review, audit, and adjudicate customer claims with real-time fraud assessment</p>
+          </div>
         </div>
       </div>
 
