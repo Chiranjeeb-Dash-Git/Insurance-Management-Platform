@@ -11,7 +11,26 @@
   <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
   <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js" />
   <img src="https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white" alt="Prisma ORM" />
-  <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite" />
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+  <img src="https://img.shields.io/badge/Neon_Cloud_DB-00E599?style=for-the-badge&logo=postgresql&logoColor=black" alt="Neon Cloud DB" />
+</p>
+
+<br />
+
+<a href="https://insuranceplatform-rho.vercel.app/" target="_blank">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=800&size=22&pause=500&color=00FF66&background=00000000&center=true&vCenter=true&width=650&lines=%E2%9A%A1+LAUNCH+INTERACTIVE+LIVE+DEMO+%E2%9A%A1;CLICK+HERE+TO+EXPERIENCE+THE+PLATFORM;HOSTED+ON+VERCEL+%2B+RENDER+CLOUD" alt="Animated Launch Logo" />
+</a>
+
+<p align="center">
+  <a href="https://insuranceplatform-rho.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/⚡_LIVE_DEMO_-VERCEL_DEPLOYED-000000?style=for-the-badge&logo=vercel&logoColor=white&labelColor=00D8FF&color=0b1329" alt="Vercel Live Demo" />
+  </a>
+  <a href="https://insuranceplatform-fjsjwrsm5-chiranjeeb-dash-gits-projects.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🔗_PROJECT_PREVIEW_-VERCEL_LINK-000000?style=for-the-badge&logo=vercel&logoColor=white&labelColor=38B2AC&color=0b1329" alt="Vercel Preview Link" />
+  </a>
+  <a href="https://insurance-management-platform-t560.onrender.com" target="_blank">
+    <img src="https://img.shields.io/badge/☁️_CLOUD_API_-RENDER_LIVE-46E3B7?style=for-the-badge&logo=render&logoColor=white&labelColor=0b1329" alt="Render Cloud API" />
+  </a>
 </p>
 
 <p align="center">
@@ -23,16 +42,30 @@
 </div>
 
 ## 📑 Table of Contents
-1. [🌟 Introduction & Overview](#-introduction--overview)
-2. [🛠️ Tech Stack & Architecture](#-tech-stack--architecture)
-3. [✨ Key Features & Role-Based Workspaces](#-key-features--role-based-workspaces)
-4. [🎨 Cyber-Blue Design System & UI/UX Evolution](#-cyber-blue-design-system--uiux-evolution)
-5. [🗺️ Development Process: How I Built This](#-development-process-how-i-built-this)
-6. [🚧 Challenges Faced & How I Overcame Them](#-challenges-faced--how-i-overcame-them)
-7. [🚀 Installation & Getting Started](#-installation--getting-started)
-8. [🔮 Future Roadmap](#-future-roadmap)
-9. [🤝 Contributing & License](#-contributing--license)
-10. [🏁 Conclusion](#-conclusion)
+1. [🌐 Live Cloud Demo & Access](#-live-cloud-demo--access)
+2. [🌟 Introduction & Overview](#-introduction--overview)
+3. [🛠️ Tech Stack & Architecture](#-tech-stack--architecture)
+4. [✨ Key Features & Role-Based Workspaces](#-key-features--role-based-workspaces)
+5. [🎨 Cyber-Blue Design System & UI/UX Evolution](#-cyber-blue-design-system--uiux-evolution)
+6. [🗺️ Development Process: How I Built This](#-development-process-how-i-built-this)
+7. [🚧 Challenges Faced & How I Overcame Them](#-challenges-faced--how-i-overcame-them)
+8. [🚀 Installation & Getting Started](#-installation--getting-started)
+9. [🔮 Future Roadmap](#-future-roadmap)
+10. [🤝 Contributing & License](#-contributing--license)
+11. [🏁 Conclusion](#-conclusion)
+
+---
+
+## 🌐 Live Cloud Demo & Access
+
+Experience the full Cyber-Blue Insurance Management Platform directly in your browser without local setup:
+
+* 🚀 **Primary Vercel Production Portal:** [https://insuranceplatform-rho.vercel.app/](https://insuranceplatform-rho.vercel.app/)
+* 🔗 **Project Preview Portal:** [https://insuranceplatform-fjsjwrsm5-chiranjeeb-dash-gits-projects.vercel.app/](https://insuranceplatform-fjsjwrsm5-chiranjeeb-dash-gits-projects.vercel.app/)
+* ☁️ **Live Cloud Backend API (Render):** [https://insurance-management-platform-t560.onrender.com](https://insurance-management-platform-t560.onrender.com)
+
+> [!TIP]
+> **Instant Demo Access:** The interactive login screen features 1-click quick-fill buttons allowing you to jump between **👑 Administrator**, **👔 Agent**, and **👤 Customer** workspaces instantly!
 
 ---
 
