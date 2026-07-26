@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=00F2FF&height=220&section=header&text=🛡️%20INSURANCE%20PLATFORM%20🛡️&fontSize=50&animation=fadeIn&fontColor=000000&fontAlignY=35" />
+</p>
+
 <div align="center">
 
 # 🛡️ Next-Gen Insurance Management Platform
@@ -248,3 +252,9 @@ The **Insurance Management Platform** demonstrates how modern web technologies, 
 **Built with ❤️ and attention to detail.**
 
 </div>
+
+---
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=00F2FF&height=120&section=footer&animation=twinkle" width="100%"/>
+</p>
