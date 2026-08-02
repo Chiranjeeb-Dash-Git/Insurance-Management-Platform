@@ -29,7 +29,7 @@
   <a href="https://insuranceplatform-rho.vercel.app/" target="_blank">
     <img src="https://img.shields.io/badge/⚡_LIVE_DEMO_-VERCEL_DEPLOYED-000000?style=for-the-badge&logo=vercel&logoColor=white&labelColor=00D8FF&color=0b1329" alt="Vercel Live Demo" />
   </a>
-  <a href="https://insuranceplatform-fjsjwrsm5-chiranjeeb-dash-gits-projects.vercel.app/" target="_blank">
+  <a href="https://insuranceplatform-rho.vercel.app/" target="_blank">
     <img src="https://img.shields.io/badge/🔗_PROJECT_PREVIEW_-VERCEL_LINK-000000?style=for-the-badge&logo=vercel&logoColor=white&labelColor=38B2AC&color=0b1329" alt="Vercel Preview Link" />
   </a>
   <a href="https://insurance-management-platform-t560.onrender.com" target="_blank">
@@ -65,7 +65,7 @@
 Experience the full Cyber-Blue Insurance Management Platform directly in your browser without local setup:
 
 * 🚀 **Primary Vercel Production Portal:** [https://insuranceplatform-rho.vercel.app/](https://insuranceplatform-rho.vercel.app/)
-* 🔗 **Project Preview Portal:** [https://insuranceplatform-fjsjwrsm5-chiranjeeb-dash-gits-projects.vercel.app/](https://insuranceplatform-fjsjwrsm5-chiranjeeb-dash-gits-projects.vercel.app/)
+* 🔗 **Project Preview Portal:** [https://insuranceplatform-rho.vercel.app/](https://insuranceplatform-rho.vercel.app/)
 * ☁️ **Live Cloud Backend API (Render):** [https://insurance-management-platform-t560.onrender.com](https://insurance-management-platform-t560.onrender.com)
 
 > [!TIP]
